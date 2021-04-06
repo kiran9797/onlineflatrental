@@ -30,7 +30,7 @@ public class FlatRest {
 	private IFlatService flatService;
 	
 	/*********************************************************************************************
-	 * Method: 				viewFlats
+	 * Method: 			viewFlats
 	 * Description: 		To display all the flats
 	 * 
 	 * @returns List<Flat>  It returns all the flats present in database
