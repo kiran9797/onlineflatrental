@@ -1,7 +1,7 @@
 package com.cg.ofr.configuration;
 
 //http://localhost:8085/v2/api-docs
-//http://localhost:8081/swagger-ui.html
+//http://localhost:8086/swagger-ui.html
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;

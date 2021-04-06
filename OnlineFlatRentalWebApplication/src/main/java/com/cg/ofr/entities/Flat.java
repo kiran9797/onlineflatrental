@@ -1,14 +1,9 @@
 package com.cg.ofr.entities;
 
 import java.io.Serializable;
-
-
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-
-
-import org.springframework.stereotype.Component;
 
 
 @Entity
@@ -74,5 +69,4 @@ public class Flat implements Serializable {
 		super();
 	}
 
-	
 }

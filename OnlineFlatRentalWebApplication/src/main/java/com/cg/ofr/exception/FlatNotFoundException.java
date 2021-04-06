@@ -1,9 +1,9 @@
 package com.cg.ofr.exception;
 
-public class LandlordNotFoundException extends Exception {
+public class FlatNotFoundException extends Exception {
 	private static final long serialVersionUID = 1L;
 
-	public LandlordNotFoundException(String message) {
+	public FlatNotFoundException(String message) {
 		super(message);
 
 	}

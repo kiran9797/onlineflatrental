@@ -10,9 +10,7 @@ import javax.persistence.OneToOne;
 @Entity
 
 public class Tenant implements Serializable {
-	/**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = 1L;
 	@Id
 	private int tenantId;
@@ -26,14 +24,12 @@ public class Tenant implements Serializable {
 		super();
 	}
 
-
 	public Tenant(int tenantId, int age, FlatBooking flatbooking) {
 		super();
 		this.tenantId = tenantId;
 		this.age = age;
 		this.flatbooking = flatbooking;
 	}
-
 
 	public int getTenantId() {
 		return tenantId;
@@ -51,21 +47,17 @@ public class Tenant implements Serializable {
 		this.age = age;
 	}
 
-		public FlatBooking getFlatbooking() {
+	public FlatBooking getFlatbooking() {
 		return flatbooking;
 	}
-
 
 	public void setFlatbooking(FlatBooking flatbooking) {
 		this.flatbooking = flatbooking;
 	}
-
 
 	@Override
 	public String toString() {
 		return "Tenant [tenantId=" + tenantId + ", age=" + age + ", flatbooking=" + flatbooking + "]";
 	}
 
-
-		
 }

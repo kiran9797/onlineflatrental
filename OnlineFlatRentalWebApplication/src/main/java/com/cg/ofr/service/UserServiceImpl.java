@@ -12,17 +12,17 @@ import com.cg.ofr.entities.User;
 import com.cg.ofr.exception.EmptyEntityListException;
 import com.cg.ofr.exception.EntityCreationException;
 import com.cg.ofr.exception.EntityDeletionException;
-import com.cg.ofr.exception.EntityNotFoundException;
 import com.cg.ofr.exception.EntityUpdationException;
+import com.cg.ofr.exception.UserNotFoundException;
 import com.cg.ofr.repository.IUserRepository;
 
-/************************************************************************************
+/****************************
  *          @author          B.Sai Kiran
  *          Description      It is a user service implementation class that defines the methods
  *                           mentioned in its interface.
   *         Version             1.0
-  *         Created Date    23-MARCH-2021
- ************************************************************************************/
+  *         Created Date    24-MARCH-2021
+ ****************************/
 @Service
 @Transactional
 public class UserServiceImpl implements IUserService {
@@ -30,7 +30,7 @@ public class UserServiceImpl implements IUserService {
 	@Autowired
 	private IUserRepository userRepository;
 
-	/************************************************************************************
+	/****************************
 	 * Method:                          viewUser
      *Description:                      To display the user by Id (Primary key)
      *@param id:                        id of the user.
@@ -38,35 +38,35 @@ public class UserServiceImpl implements IUserService {
 	 * @returns User                  - if user with Id presents it returns user else throws UserNotFoundException
 	 * @throws UserNotFoundException -  It is raised due to invalid  UserId 
                 *Created By                                - B.Sai Kiran
-                *Created Date                            - 23-MARCH-2021                           
+                *Created Date                            - 24-MARCH-2021                           
 	 
-	 ************************************************************************************/
+	 ****************************/
 	@Override
-	public User viewUser(int id) throws EntityNotFoundException {
+	public User viewUser(int id) throws UserNotFoundException {
 		try {
 			Optional<User> user = userRepository.findById(id);
 			if (user.isPresent()) {
 				return user.get();
 			} else {
-				throw new EntityNotFoundException("User is not found for Id " + id);
+				throw new UserNotFoundException("User is not found for Id " + id);
 			}
 
 		} catch (Exception e) {
-			throw new EntityNotFoundException(e.getMessage());
+			throw new UserNotFoundException(e.getMessage());
 
 		}
 
 	}
 
-	/************************************************************************************
+	/****************************
 	 * Method:                          viewAllUser
      *Description:                      To display all the users
 	 * @throws EmptyEntityListException 
 	 * @returns List<User>            - It returns all the users present in database
                 *Created By                                - B.Sai Kiran
-                *Created Date                            - 23-MARCH-2021                           
+                *Created Date                            - 24-MARCH-2021                           
 	 
-	 ************************************************************************************/
+	 ****************************/
 	@Override
 	public List<User> viewAllUser() {
 		try {
@@ -82,7 +82,7 @@ public class UserServiceImpl implements IUserService {
 
 	}
 
-	/************************************************************************************
+	/****************************
 	 * Method:                          validateUser
      *Description:                      It is used to verify username and password of user
      * @param username:                 username for validating user.
@@ -91,37 +91,37 @@ public class UserServiceImpl implements IUserService {
 	 * @returns User                  - it returns user details if the details are correct else it throws UserNotFoundException
 	 * @throws UserNotFoundException -  It is raised due to invalid username or password.
                 *Created By                                - B.Sai Kiran
-                *Created Date                            - 23-MARCH-2021                           
+                *Created Date                            - 24-MARCH-2021                           
 	 
-	 ************************************************************************************/
+	 ****************************/
 	@Override
-	public User validateUser(String username, String password) throws EntityNotFoundException {
+	public User validateUser(String username, String password) throws UserNotFoundException {
 		try {
 			Optional<User> user = userRepository.findByuserName(username);
 			if (user.isPresent()) {
 				if (username.equals(user.get().getUserName()) && (password.equals(user.get().getPassword()))) {
 					return user.get();
 				} else {
-					throw new EntityNotFoundException("Password does not match for " + username);
+					throw new UserNotFoundException("Password does not match for " + username);
 				}
 			} else {
-				throw new EntityNotFoundException("User is not there with username :" + username);
+				throw new UserNotFoundException("User is not there with username :" + username);
 			}
 		} catch (Exception e) {
-			throw new EntityNotFoundException(e.getMessage());
+			throw new UserNotFoundException(e.getMessage());
 		}
 	}
 
-	/************************************************************************************
+	/****************************
 	 * Method:                          addUser
      *Description:                      It is used to add user into user_details table
      * @param user:                     User's reference variable.
 	 * @throws EntityCreationException 
 	 * @returns User                    It returns user with details
                 *Created By                                - B.Sai Kiran
-                *Created Date                            - 23-MARCH-2021                           
+                *Created Date                            - 24-MARCH-2021                           
 	 
-	 ************************************************************************************/
+	 ****************************/
 	@Override
 	public User addUser(User user) {
 		try {
@@ -131,7 +131,7 @@ public class UserServiceImpl implements IUserService {
 		}
 	}
 
-	/************************************************************************************
+	/****************************
 	 * Method:                          updateUser
      *Description:                      It is used to update user details into user_details table.
      * @param user:                     User's reference variable.
@@ -140,7 +140,7 @@ public class UserServiceImpl implements IUserService {
                 *Created By                                - B.Sai Kiran
                 *Created Date                            - 23-MARCH-2021                           
 	 
-	 ************************************************************************************/
+	 ****************************/
 	@Override
 	public User updateUser(User user) {
 		try {
@@ -156,7 +156,7 @@ public class UserServiceImpl implements IUserService {
 
 	}
 
-	/************************************************************************************
+	/****************************
 	 * Method:                          updatePassword
      *Description:                      It is used to update password
      *@param user:                      User's reference variable.
@@ -165,11 +165,11 @@ public class UserServiceImpl implements IUserService {
 	 * @throws UserNotFoundException 
 	 * @returns User                    It returns updated details of the existed user.
                 *Created By                                - B.Sai Kiran
-                *Created Date                            - 23-MARCH-2021                           
+                *Created Date                            - 24-MARCH-2021                           
 	 
-	 ************************************************************************************/
+	 ****************************/
 	@Override
-	public User updatePassword(User user, String newpass) {
+	public User updatePassword(User user, String newpass) throws UserNotFoundException {
 		try {
 			Optional<User> checkuser = userRepository.findByuserName(user.getUserName());
 			Optional<User> checkuser1 = Optional
@@ -179,15 +179,15 @@ public class UserServiceImpl implements IUserService {
 				userRepository.save(user);
 				return user;
 			} else {
-				throw new EntityNotFoundException("No user found");
+				throw new UserNotFoundException("No user found");
 			}
 
 		} catch (Exception e) {
-			throw new EntityNotFoundException(e.getMessage());
+			throw new UserNotFoundException(e.getMessage());
 		}
 	}
 
-	/************************************************************************************
+	/****************************
 	 * Method:                          removeUser
      *Description:                      It is used to remove user
      *@param user:                      User's reference variable.
@@ -195,9 +195,9 @@ public class UserServiceImpl implements IUserService {
 	 * @returns User                    It returns the user that has been deleted
 	 * @throws UserNotFoundException:   It is raised due to invalid user.
                 * Created By                                - B.Sai Kiran
-                *Created Date                            - 23-MARCH-2021                           
+                *Created Date                            - 24-MARCH-2021                           
 	 
-	 ************************************************************************************/
+	 ****************************/
 	@Override
 	public User removeUser(User user) {
 		try {

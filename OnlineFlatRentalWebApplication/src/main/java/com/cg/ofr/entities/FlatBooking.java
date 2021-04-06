@@ -3,55 +3,43 @@ package com.cg.ofr.entities;
 import java.io.Serializable;
 import java.time.LocalDate;
 
-
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
-
-
-
 
 @Entity
 public class FlatBooking implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue
 	private Integer bookingNo;
-	
+
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "Tenant")
-	private Tenant Tenant;
-	
+	private Tenant tenant;
+
 	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "FlatId")
+	@JoinColumn(name = "Flat")
 	private Flat flat;
-	
+
 	private LocalDate bookingFromDate;
-	
+
 	private LocalDate bookingToDate;
 
-
-	
-	
-	
 	public FlatBooking() {
 		super();
 	}
 
-	
-	public FlatBooking(Integer bookingNo,LocalDate bookingFromDate,LocalDate bookingToDate, Flat flat, Tenant tenant ) {
+	public FlatBooking(Integer bookingNo, LocalDate bookingFromDate, LocalDate bookingToDate, Flat flat,
+			Tenant tenant) {
 		this.bookingNo = bookingNo;
 		this.flat = flat;
-		this.Tenant= tenant;
+		this.tenant = tenant;
 		this.bookingFromDate = bookingFromDate;
 		this.bookingToDate = bookingToDate;
 	}
-
-	
 
 	public Integer getBookingNo() {
 		return bookingNo;
@@ -62,18 +50,16 @@ public class FlatBooking implements Serializable {
 	}
 
 	public Tenant getTenant() {
-		return Tenant;
+		return tenant;
 	}
 
 	public void setTenant(Tenant tenant) {
-		this.Tenant = tenant;
+		this.tenant = tenant;
 	}
 
 	public Flat getFlat() {
 		return flat;
 	}
-
-	
 
 	public void setFlat(Flat flat) {
 		this.flat = flat;
@@ -97,9 +83,8 @@ public class FlatBooking implements Serializable {
 
 	@Override
 	public String toString() {
-		return "FlatBooking [bookingNo=" + bookingNo + ", Tenant=" + Tenant + ", flat=" + flat + ", bookingFromDate="
+		return "FlatBooking [bookingNo=" + bookingNo + ", Tenant=" + tenant + ", flat=" + flat + ", bookingFromDate="
 				+ bookingFromDate + ", bookingToDate=" + bookingToDate + "]";
 	}
 
-	
 }
